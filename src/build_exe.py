@@ -51,7 +51,7 @@ setup(
     },
     windows=[
         {"script": "racm.py",
-         "icon_resources": [(0, "../resources/icons/favicon2.ico")],
+         "icon_resources": [(0, "../resources/icons/favicon.ico")],
          "other_resources": [(24, 1, manifest)]}
     ],
     zipfile=None
