@@ -3,11 +3,20 @@ Remote ADB Connection Manager
 
 RACM (Remote ADB Connection Manager) provides easy way to manage multiple remote ADB (Android Debug Bridge) connections.
 
+![Screen shot: Main Window](doc/img/main_window_0.1.png "Main Window")
+
+## Download
+
+Sources and Windows ".exe" file are located in [releases](https://github.com/mikan/racm/releases) page.
+
+## Background
+
 ADB can connect remote target with `adb connect <host>:<port>` command, but command operations between multiple targets are very troublesome and increase destructive human errors.
 RACM has a simple interface allowing easy and safe operation.
-Remote ADB connection is often used by custom emulator environments (e.g. Genymotion) and some networked embedded devices (e.g. RICOH's MultiLink-Panel MFP).
 
-![Screen shot: Main Window](doc/img/main_window_0.1.png "Main Window")
+The remote ADB connection is often used by custom emulator environments (e.g. Genymotion) and some networked embedded devices (e.g. RICOH's MultiLink-Panel MFP).
+
+NOTE: These are usually required port forwarding settings.
 
 ## Settings
 
