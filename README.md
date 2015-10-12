@@ -42,4 +42,4 @@ Other platform users can execute RACM by command line `> chmod u+x racm.py && ./
 
 ## License
 
-RACM is licensed under BSD license.
+RACM is licensed under [New BSD license](LICENSE).
