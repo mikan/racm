@@ -40,8 +40,11 @@ class RacmConfig(object):
         return CONFIG_FILE_PATH
 
     def get(self, key):
-        value = self.dict[key]
-        return "" if value is None else value
+        try:
+            value = self.dict[key]
+            return "" if value is None else value
+        except KeyError, e:
+            return ""
 
     def get_enable(self, key):
         return self.get(key) == 1

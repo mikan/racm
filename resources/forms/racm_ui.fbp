@@ -44,7 +44,7 @@
             <property name="minimum_size">540,420</property>
             <property name="name">MainFrame</property>
             <property name="pos"></property>
-            <property name="size">540,420</property>
+            <property name="size">550,420</property>
             <property name="style">wxDEFAULT_FRAME_STYLE</property>
             <property name="subclass">; </property>
             <property name="title">Remote ADB Connection Manager</property>
@@ -62,7 +62,7 @@
             <event name="OnAuiPaneRestore"></event>
             <event name="OnAuiRender"></event>
             <event name="OnChar"></event>
-            <event name="OnClose"></event>
+            <event name="OnClose">on_main_closed</event>
             <event name="OnEnterWindow"></event>
             <event name="OnEraseBackground"></event>
             <event name="OnHibernate"></event>
@@ -1168,7 +1168,7 @@
             <property name="minimum_size"></property>
             <property name="name">SettingsFrame</property>
             <property name="pos"></property>
-            <property name="size">502,401</property>
+            <property name="size">502,420</property>
             <property name="style">wxDEFAULT_FRAME_STYLE</property>
             <property name="subclass">; </property>
             <property name="title">Settings</property>
@@ -3641,7 +3641,7 @@
             <property name="minimum_size"></property>
             <property name="name">AddDialog</property>
             <property name="pos"></property>
-            <property name="size">230,270</property>
+            <property name="size">230,300</property>
             <property name="style">wxDEFAULT_DIALOG_STYLE</property>
             <property name="subclass"></property>
             <property name="title">Add a target</property>
@@ -4453,7 +4453,7 @@
             <property name="minimum_size"></property>
             <property name="name">EditDialog</property>
             <property name="pos"></property>
-            <property name="size">230,270</property>
+            <property name="size">230,300</property>
             <property name="style">wxDEFAULT_DIALOG_STYLE</property>
             <property name="subclass"></property>
             <property name="title">Edit the target</property>

@@ -21,7 +21,7 @@ _ = gettext.gettext
 class MainFrame ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Remote ADB Connection Manager"), pos = wx.DefaultPosition, size = wx.Size( 540,420 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Remote ADB Connection Manager"), pos = wx.DefaultPosition, size = wx.Size( 550,420 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.Size( 540,420 ), wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
@@ -134,6 +134,7 @@ class MainFrame ( wx.Frame ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
+		self.Bind( wx.EVT_CLOSE, self.on_main_closed )
 		self.Bind( wx.EVT_MENU, self.on_add_selected, id = self.add_menu_item.GetId() )
 		self.Bind( wx.EVT_MENU, self.on_refresh_selected, id = self.refresh_menu_item.GetId() )
 		self.Bind( wx.EVT_MENU, self.on_exit_selected, id = self.exit_menu_item.GetId() )
@@ -157,6 +158,9 @@ class MainFrame ( wx.Frame ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def on_main_closed( self, event ):
+		pass
+	
 	def on_add_selected( self, event ):
 		pass
 	
@@ -216,7 +220,7 @@ class MainFrame ( wx.Frame ):
 class SettingsFrame ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Settings"), pos = wx.DefaultPosition, size = wx.Size( 502,401 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Settings"), pos = wx.DefaultPosition, size = wx.Size( 502,420 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
@@ -404,7 +408,7 @@ class SettingsFrame ( wx.Frame ):
 class AddDialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Add a target"), pos = wx.DefaultPosition, size = wx.Size( 230,270 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Add a target"), pos = wx.DefaultPosition, size = wx.Size( 230,300 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
@@ -485,7 +489,7 @@ class AddDialog ( wx.Dialog ):
 class EditDialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Edit the target"), pos = wx.DefaultPosition, size = wx.Size( 230,270 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Edit the target"), pos = wx.DefaultPosition, size = wx.Size( 230,300 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		

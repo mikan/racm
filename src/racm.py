@@ -7,7 +7,7 @@ from racm_ui_main_frame import MainFrame as InheritedMainFrame
 
 __author__ = 'mikan'
 
-_VERSION = "0.1"
+_VERSION = "0.2"
 
 
 def _open_window(cfg):
@@ -19,7 +19,7 @@ def _open_window(cfg):
 
 
 def main():
-    print("Remote ADB Connection Manager")
+    print("Remote ADB Connection Manager " + _VERSION)
     cfg = config.RacmConfig()
     if cfg.dict is None:
         message = "Failed to create configuration file: " + cfg.get_config_path()

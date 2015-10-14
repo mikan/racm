@@ -23,9 +23,29 @@ class MainFrame(racm_ui.MainFrame):
         self._version = version
         self._config = config
         self.apply_config()
-        self.host_list.GetColumn(_COLUMN_HOST).SetWidth(120)
+        self.host_list.GetColumn(_COLUMN_HOST).SetWidth(140)
         self.host_list.GetColumn(_COLUMN_NAME).SetWidth(120)
         self.host_list.GetColumn(_COLUMN_STATUS).SetWidth(140)
+        # Window Size
+        size_x = self._config.get("window.size.x")
+        size_y = self._config.get("window.size.y")
+        if size_x and size_y:
+            self.SetSize(size=(size_x, size_y))
+        # Window Position
+        pos_x = self._config.get("window.pos.x")
+        pos_y = self._config.get("window.pos.y")
+        if pos_x and pos_y:
+            self.Position = (pos_x, pos_y)
+
+    def on_main_closed(self, event):
+        size = self.GetSize()
+        pos = self.GetPosition()
+        self._config.set("window.size.x", size.x)
+        self._config.set("window.size.y", size.y)
+        self._config.set("window.pos.x", pos.x)
+        self._config.set("window.pos.y", pos.y)
+        self._config.write()
+        self.Destroy()
 
     # Handlers for MainFrame events.
     def on_refresh_selected(self, event):
