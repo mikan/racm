@@ -23,9 +23,13 @@ class MainFrame(racm_ui.MainFrame):
         self._version = version
         self._config = config
         self.apply_config()
-        self.host_list.GetColumn(_COLUMN_HOST).SetWidth(140)
-        self.host_list.GetColumn(_COLUMN_NAME).SetWidth(120)
-        self.host_list.GetColumn(_COLUMN_STATUS).SetWidth(140)
+        # Column width
+        host_width = self._config.get_or_default("window.col.host", 140)
+        name_width = self._config.get_or_default("window.col.name", 120)
+        status_width = self._config.get_or_default("window.col.status", 140)
+        self.host_list.GetColumn(_COLUMN_HOST).SetWidth(host_width)
+        self.host_list.GetColumn(_COLUMN_NAME).SetWidth(name_width)
+        self.host_list.GetColumn(_COLUMN_STATUS).SetWidth(status_width)
         # Window Size
         size_x = self._config.get("window.size.x")
         size_y = self._config.get("window.size.y")
@@ -44,6 +48,9 @@ class MainFrame(racm_ui.MainFrame):
         self._config.set("window.size.y", size.y)
         self._config.set("window.pos.x", pos.x)
         self._config.set("window.pos.y", pos.y)
+        self._config.set("window.col.host", self.host_list.GetColumn(_COLUMN_HOST).GetWidth())
+        self._config.set("window.col.name", self.host_list.GetColumn(_COLUMN_NAME).GetWidth())
+        self._config.set("window.col.status", self.host_list.GetColumn(_COLUMN_STATUS).GetWidth())
         self._config.write()
         self.Destroy()
 

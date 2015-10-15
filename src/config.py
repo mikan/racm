@@ -46,6 +46,10 @@ class RacmConfig(object):
         except KeyError, e:
             return ""
 
+    def get_or_default(self, key, default):
+        value = self.get(key)
+        return default if not value else value
+
     def get_enable(self, key):
         return self.get(key) == 1
 
