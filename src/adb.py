@@ -12,8 +12,11 @@ class Adb(object):
 
     @staticmethod
     def _run(args):
+        startupinfo = subprocess.STARTUPINFO()
+        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        startupinfo.wShowWindow = subprocess.SW_HIDE
         p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                             shell=False)
+                             shell=False, startupinfo=startupinfo)
         ret = p.wait()
         output = Adb._out2str(p.stdout.readlines())
         error = Adb._out2str(p.stderr.readlines())
@@ -40,3 +43,6 @@ class Adb(object):
     def restart(self):
         self._run([self._path, "kill-server"])
         return self._run([self._path, "start-server"])
+
+    def path_provided(self):
+        return self._path is not None and not self._path == ""

@@ -1211,7 +1211,7 @@
             <property name="name">SettingsFrame</property>
             <property name="pos"></property>
             <property name="size">502,420</property>
-            <property name="style">wxDEFAULT_FRAME_STYLE</property>
+            <property name="style">wxDEFAULT_FRAME_STYLE|wxFRAME_FLOAT_ON_PARENT</property>
             <property name="subclass">; </property>
             <property name="title">Settings</property>
             <property name="tooltip"></property>

@@ -11,7 +11,7 @@ class SettingsFrame(racm_ui.SettingsFrame):
     _main_frame = None
     _config = None
 
-    def __init__(self, parent, main_frame, config):
+    def __init__(self, parent, config):
         racm_ui.SettingsFrame.__init__(self, parent)
         default_dir = config.get("adb.path")
         if default_dir is "":
@@ -21,7 +21,7 @@ class SettingsFrame(racm_ui.SettingsFrame):
                 default_dir = "~/Library/Android/sdk/platform-tools"
             else:
                 default_dir = "~/"
-        self._main_frame = main_frame
+        self._main_frame = parent
         self._config = config
         self.adb_file_picker.SetInitialDirectory(default_dir)
         self.adb_file_picker.SetPath(config.get("adb.path"))

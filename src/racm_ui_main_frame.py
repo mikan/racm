@@ -69,7 +69,7 @@ class MainFrame(racm_ui.MainFrame):
         self.Close()
 
     def on_settings_selected(self, event):
-        InheritedSettingsFrame(None, self, self._config).Show()
+        InheritedSettingsFrame(self, self._config).Show()
 
     def on_edit_selected(self, event):
         self.on_host_selection_item_activated(event)
@@ -93,6 +93,9 @@ class MainFrame(racm_ui.MainFrame):
 
     def on_host_selection_changed(self, event):
         selected = self.host_list.GetSelectedRow() >= 0
+        if selected and not self._adb.path_provided():
+            self._show_settings_info("Please specify ADB path.")
+            return
         self.connect_button.Enable(selected)
         self.disconnect_button.Enable(selected)
         self.custom1_button.Enable(selected and self._config.get_enable("custom1.enable"))
@@ -192,6 +195,12 @@ class MainFrame(racm_ui.MainFrame):
         dialog = wx.MessageDialog(None, message, self.Title, wx.OK | wx.ICON_WARNING)
         dialog.ShowModal()
         dialog.Destroy()
+
+    def _show_settings_info(self, message):
+        dialog = wx.MessageDialog(None, message, self.Title, wx.OK | wx.ICON_INFORMATION)
+        dialog.ShowModal()
+        dialog.Destroy()
+        self.on_settings_selected(None)
 
     def _exec_adb_shell(self, command):
         row = self.host_list.GetSelectedRow()
