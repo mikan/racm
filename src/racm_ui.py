@@ -21,7 +21,7 @@ _ = gettext.gettext
 class MainFrame ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Remote ADB Connection Manager"), pos = wx.DefaultPosition, size = wx.Size( 540,420 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Remote ADB Connection Manager"), pos = wx.DefaultPosition, size = wx.Size( 550,420 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.Size( 540,420 ), wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
@@ -34,6 +34,8 @@ class MainFrame ( wx.Frame ):
 		self.refresh_menu_item = wx.MenuItem( self.file_menu, wx.ID_ANY, _(u"Refresh"), _(u"Execute \"kill-server\" and \"start-server\"."), wx.ITEM_NORMAL )
 		self.file_menu.AppendItem( self.refresh_menu_item )
 		
+		self.file_menu.AppendSeparator()
+		
 		self.exit_menu_item = wx.MenuItem( self.file_menu, wx.ID_ANY, _(u"Exit"), _(u"Exit this application."), wx.ITEM_NORMAL )
 		self.file_menu.AppendItem( self.exit_menu_item )
 		
@@ -42,6 +44,8 @@ class MainFrame ( wx.Frame ):
 		self.edit_menu = wx.Menu()
 		self.settings_menu_item = wx.MenuItem( self.edit_menu, wx.ID_ANY, _(u"Settings..."), _(u"Change ADB path, custom buttons, and more."), wx.ITEM_NORMAL )
 		self.edit_menu.AppendItem( self.settings_menu_item )
+		
+		self.edit_menu.AppendSeparator()
 		
 		self.edit_menu_item = wx.MenuItem( self.edit_menu, wx.ID_ANY, _(u"Edit..."), _(u"Edit the selected target."), wx.ITEM_NORMAL )
 		self.edit_menu.AppendItem( self.edit_menu_item )
@@ -52,6 +56,14 @@ class MainFrame ( wx.Frame ):
 		self.menu_bar.Append( self.edit_menu, _(u"Edit") ) 
 		
 		self.help_menu = wx.Menu()
+		self.releases_menu_item = wx.MenuItem( self.help_menu, wx.ID_ANY, _(u"Check releases..."), wx.EmptyString, wx.ITEM_NORMAL )
+		self.help_menu.AppendItem( self.releases_menu_item )
+		
+		self.issues_menu_item = wx.MenuItem( self.help_menu, wx.ID_ANY, _(u"Check issues..."), wx.EmptyString, wx.ITEM_NORMAL )
+		self.help_menu.AppendItem( self.issues_menu_item )
+		
+		self.help_menu.AppendSeparator()
+		
 		self.about_menu_item = wx.MenuItem( self.help_menu, wx.ID_ANY, _(u"About..."), _(u"About this application."), wx.ITEM_NORMAL )
 		self.help_menu.AppendItem( self.about_menu_item )
 		
@@ -134,12 +146,15 @@ class MainFrame ( wx.Frame ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
+		self.Bind( wx.EVT_CLOSE, self.on_main_closed )
 		self.Bind( wx.EVT_MENU, self.on_add_selected, id = self.add_menu_item.GetId() )
 		self.Bind( wx.EVT_MENU, self.on_refresh_selected, id = self.refresh_menu_item.GetId() )
 		self.Bind( wx.EVT_MENU, self.on_exit_selected, id = self.exit_menu_item.GetId() )
 		self.Bind( wx.EVT_MENU, self.on_settings_selected, id = self.settings_menu_item.GetId() )
 		self.Bind( wx.EVT_MENU, self.on_edit_selected, id = self.edit_menu_item.GetId() )
 		self.Bind( wx.EVT_MENU, self.on_remove_selected, id = self.remove_menu_item.GetId() )
+		self.Bind( wx.EVT_MENU, self.on_releases_selected, id = self.releases_menu_item.GetId() )
+		self.Bind( wx.EVT_MENU, self.on_issues_selected, id = self.issues_menu_item.GetId() )
 		self.Bind( wx.EVT_MENU, self.on_about_selected, id = self.about_menu_item.GetId() )
 		self.Bind( wx.dataview.EVT_DATAVIEW_ITEM_ACTIVATED, self.on_host_selection_item_activated, id = wx.ID_ANY )
 		self.Bind( wx.dataview.EVT_DATAVIEW_SELECTION_CHANGED, self.on_host_selection_changed, id = wx.ID_ANY )
@@ -157,6 +172,9 @@ class MainFrame ( wx.Frame ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def on_main_closed( self, event ):
+		pass
+	
 	def on_add_selected( self, event ):
 		pass
 	
@@ -173,6 +191,12 @@ class MainFrame ( wx.Frame ):
 		pass
 	
 	def on_remove_selected( self, event ):
+		pass
+	
+	def on_releases_selected( self, event ):
+		pass
+	
+	def on_issues_selected( self, event ):
 		pass
 	
 	def on_about_selected( self, event ):
@@ -216,7 +240,7 @@ class MainFrame ( wx.Frame ):
 class SettingsFrame ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Settings"), pos = wx.DefaultPosition, size = wx.Size( 502,401 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Settings"), pos = wx.DefaultPosition, size = wx.Size( 502,420 ), style = wx.DEFAULT_FRAME_STYLE|wx.FRAME_FLOAT_ON_PARENT|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
@@ -404,7 +428,7 @@ class SettingsFrame ( wx.Frame ):
 class AddDialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Add a target"), pos = wx.DefaultPosition, size = wx.Size( 230,270 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Add a target"), pos = wx.DefaultPosition, size = wx.Size( 230,300 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
@@ -485,7 +509,7 @@ class AddDialog ( wx.Dialog ):
 class EditDialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Edit the target"), pos = wx.DefaultPosition, size = wx.Size( 230,270 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Edit the target"), pos = wx.DefaultPosition, size = wx.Size( 230,300 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		

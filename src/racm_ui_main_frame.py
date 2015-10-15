@@ -3,6 +3,7 @@
 import wx
 import adb
 import racm_ui
+import webbrowser
 from racm_ui_add_dialog import AddDialog as InheritedAddDialog
 from racm_ui_edit_dialog import EditDialog as InheritedEditDialog
 from racm_ui_settings_frame import SettingsFrame as InheritedSettingsFrame
@@ -18,14 +19,42 @@ class MainFrame(racm_ui.MainFrame):
     _adb = None
     _version = ""
 
-    def __init__(self, parent, version, config):
+    def __init__(self, parent, version, config, title):
         racm_ui.MainFrame.__init__(self, parent)
         self._version = version
         self._config = config
         self.apply_config()
-        self.host_list.GetColumn(_COLUMN_HOST).SetWidth(120)
-        self.host_list.GetColumn(_COLUMN_NAME).SetWidth(120)
-        self.host_list.GetColumn(_COLUMN_STATUS).SetWidth(140)
+        self.SetTitle(title)
+        # Column width
+        host_width = self._config.get_or_default("window.col.host", 140)
+        name_width = self._config.get_or_default("window.col.name", 120)
+        status_width = self._config.get_or_default("window.col.status", 140)
+        self.host_list.GetColumn(_COLUMN_HOST).SetWidth(host_width)
+        self.host_list.GetColumn(_COLUMN_NAME).SetWidth(name_width)
+        self.host_list.GetColumn(_COLUMN_STATUS).SetWidth(status_width)
+        # Window Size
+        size_x = self._config.get("window.size.x")
+        size_y = self._config.get("window.size.y")
+        if size_x and size_y:
+            self.SetSize(size=(size_x, size_y))
+        # Window Position
+        pos_x = self._config.get("window.pos.x")
+        pos_y = self._config.get("window.pos.y")
+        if pos_x and pos_y:
+            self.Position = (pos_x, pos_y)
+
+    def on_main_closed(self, event):
+        size = self.GetSize()
+        pos = self.GetPosition()
+        self._config.set("window.size.x", size.x)
+        self._config.set("window.size.y", size.y)
+        self._config.set("window.pos.x", pos.x)
+        self._config.set("window.pos.y", pos.y)
+        self._config.set("window.col.host", self.host_list.GetColumn(_COLUMN_HOST).GetWidth())
+        self._config.set("window.col.name", self.host_list.GetColumn(_COLUMN_NAME).GetWidth())
+        self._config.set("window.col.status", self.host_list.GetColumn(_COLUMN_STATUS).GetWidth())
+        self._config.write()
+        self.Destroy()
 
     # Handlers for MainFrame events.
     def on_refresh_selected(self, event):
@@ -40,13 +69,19 @@ class MainFrame(racm_ui.MainFrame):
         self.Close()
 
     def on_settings_selected(self, event):
-        InheritedSettingsFrame(None, self, self._config).Show()
+        InheritedSettingsFrame(self, self._config).Show()
 
     def on_edit_selected(self, event):
         self.on_host_selection_item_activated(event)
 
     def on_remove_selected(self, event):
         self.on_remove_clicked(event)
+
+    def on_releases_selected(self, event):
+        self._open_browser("https://github.com/mikan/racm/releases")
+
+    def on_issues_selected(self, event):
+        self._open_browser("https://github.com/mikan/racm/issues")
 
     def on_about_selected(self, event):
         about = wx.AboutDialogInfo()
@@ -58,6 +93,9 @@ class MainFrame(racm_ui.MainFrame):
 
     def on_host_selection_changed(self, event):
         selected = self.host_list.GetSelectedRow() >= 0
+        if selected and not self._adb.path_provided():
+            self._show_settings_info("Please specify ADB path.")
+            return
         self.connect_button.Enable(selected)
         self.disconnect_button.Enable(selected)
         self.custom1_button.Enable(selected and self._config.get_enable("custom1.enable"))
@@ -158,6 +196,12 @@ class MainFrame(racm_ui.MainFrame):
         dialog.ShowModal()
         dialog.Destroy()
 
+    def _show_settings_info(self, message):
+        dialog = wx.MessageDialog(None, message, self.Title, wx.OK | wx.ICON_INFORMATION)
+        dialog.ShowModal()
+        dialog.Destroy()
+        self.on_settings_selected(None)
+
     def _exec_adb_shell(self, command):
         row = self.host_list.GetSelectedRow()
         if row < 0:
@@ -191,3 +235,9 @@ class MainFrame(racm_ui.MainFrame):
         elif "No such device" in status:
             return "No such device"
         return status
+
+    @staticmethod
+    def _open_browser(url):
+        wx.BeginBusyCursor()
+        webbrowser.open(url)
+        wx.EndBusyCursor()

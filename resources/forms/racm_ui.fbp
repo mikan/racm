@@ -44,7 +44,7 @@
             <property name="minimum_size">540,420</property>
             <property name="name">MainFrame</property>
             <property name="pos"></property>
-            <property name="size">540,420</property>
+            <property name="size">550,420</property>
             <property name="style">wxDEFAULT_FRAME_STYLE</property>
             <property name="subclass">; </property>
             <property name="title">Remote ADB Connection Manager</property>
@@ -62,7 +62,7 @@
             <event name="OnAuiPaneRestore"></event>
             <event name="OnAuiRender"></event>
             <event name="OnChar"></event>
-            <event name="OnClose"></event>
+            <event name="OnClose">on_main_closed</event>
             <event name="OnEnterWindow"></event>
             <event name="OnEraseBackground"></event>
             <event name="OnHibernate"></event>
@@ -167,6 +167,10 @@
                         <event name="OnMenuSelection">on_refresh_selected</event>
                         <event name="OnUpdateUI"></event>
                     </object>
+                    <object class="separator" expanded="1">
+                        <property name="name">file_separator</property>
+                        <property name="permission">none</property>
+                    </object>
                     <object class="wxMenuItem" expanded="0">
                         <property name="bitmap"></property>
                         <property name="checked">0</property>
@@ -201,6 +205,10 @@
                         <property name="unchecked_bitmap"></property>
                         <event name="OnMenuSelection">on_settings_selected</event>
                         <event name="OnUpdateUI"></event>
+                    </object>
+                    <object class="separator" expanded="1">
+                        <property name="name">edit_separator</property>
+                        <property name="permission">none</property>
                     </object>
                     <object class="wxMenuItem" expanded="1">
                         <property name="bitmap"></property>
@@ -237,6 +245,40 @@
                     <property name="label">Help</property>
                     <property name="name">help_menu</property>
                     <property name="permission">protected</property>
+                    <object class="wxMenuItem" expanded="1">
+                        <property name="bitmap"></property>
+                        <property name="checked">0</property>
+                        <property name="enabled">1</property>
+                        <property name="help"></property>
+                        <property name="id">wxID_ANY</property>
+                        <property name="kind">wxITEM_NORMAL</property>
+                        <property name="label">Check releases...</property>
+                        <property name="name">releases_menu_item</property>
+                        <property name="permission">none</property>
+                        <property name="shortcut"></property>
+                        <property name="unchecked_bitmap"></property>
+                        <event name="OnMenuSelection">on_releases_selected</event>
+                        <event name="OnUpdateUI"></event>
+                    </object>
+                    <object class="wxMenuItem" expanded="1">
+                        <property name="bitmap"></property>
+                        <property name="checked">0</property>
+                        <property name="enabled">1</property>
+                        <property name="help"></property>
+                        <property name="id">wxID_ANY</property>
+                        <property name="kind">wxITEM_NORMAL</property>
+                        <property name="label">Check issues...</property>
+                        <property name="name">issues_menu_item</property>
+                        <property name="permission">none</property>
+                        <property name="shortcut"></property>
+                        <property name="unchecked_bitmap"></property>
+                        <event name="OnMenuSelection">on_issues_selected</event>
+                        <event name="OnUpdateUI"></event>
+                    </object>
+                    <object class="separator" expanded="1">
+                        <property name="name">help_separator</property>
+                        <property name="permission">none</property>
+                    </object>
                     <object class="wxMenuItem" expanded="0">
                         <property name="bitmap"></property>
                         <property name="checked">0</property>
@@ -1168,8 +1210,8 @@
             <property name="minimum_size"></property>
             <property name="name">SettingsFrame</property>
             <property name="pos"></property>
-            <property name="size">502,401</property>
-            <property name="style">wxDEFAULT_FRAME_STYLE</property>
+            <property name="size">502,420</property>
+            <property name="style">wxDEFAULT_FRAME_STYLE|wxFRAME_FLOAT_ON_PARENT</property>
             <property name="subclass">; </property>
             <property name="title">Settings</property>
             <property name="tooltip"></property>
@@ -3641,7 +3683,7 @@
             <property name="minimum_size"></property>
             <property name="name">AddDialog</property>
             <property name="pos"></property>
-            <property name="size">230,270</property>
+            <property name="size">230,300</property>
             <property name="style">wxDEFAULT_DIALOG_STYLE</property>
             <property name="subclass"></property>
             <property name="title">Add a target</property>
@@ -4453,7 +4495,7 @@
             <property name="minimum_size"></property>
             <property name="name">EditDialog</property>
             <property name="pos"></property>
-            <property name="size">230,270</property>
+            <property name="size">230,300</property>
             <property name="style">wxDEFAULT_DIALOG_STYLE</property>
             <property name="subclass"></property>
             <property name="title">Edit the target</property>
