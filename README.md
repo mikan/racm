@@ -40,7 +40,6 @@ Other platform users can execute RACM by command line `> chmod u+x racm.py && ./
 
 * [wxPython](http://www.wxpython.org/) 3.0
 * [PyYAML](http://pyyaml.org/) 3.11
-* [py2exe](http://www.py2exe.org/) 0.6.9
 
 ## Development Environment
 
@@ -50,6 +49,7 @@ Other platform users can execute RACM by command line `> chmod u+x racm.py && ./
 * Python 2.7 32bit
 * PyCharm 4.5.4
 * wxFormBuilder 3.5.0-beta
+* py2exe 0.6.9
 
 ### OS X
 
@@ -57,6 +57,7 @@ Other platform users can execute RACM by command line `> chmod u+x racm.py && ./
 * Anaconda Python 2.7
 * PyCharm 4.5.4
 * wxFormBuilder 3.5 RC1
+* py2app 0.9
 
 ## License
 
