@@ -34,6 +34,8 @@ class MainFrame ( wx.Frame ):
 		self.refresh_menu_item = wx.MenuItem( self.file_menu, wx.ID_ANY, _(u"Refresh"), _(u"Execute \"kill-server\" and \"start-server\"."), wx.ITEM_NORMAL )
 		self.file_menu.AppendItem( self.refresh_menu_item )
 		
+		self.file_menu.AppendSeparator()
+		
 		self.exit_menu_item = wx.MenuItem( self.file_menu, wx.ID_ANY, _(u"Exit"), _(u"Exit this application."), wx.ITEM_NORMAL )
 		self.file_menu.AppendItem( self.exit_menu_item )
 		
@@ -42,6 +44,8 @@ class MainFrame ( wx.Frame ):
 		self.edit_menu = wx.Menu()
 		self.settings_menu_item = wx.MenuItem( self.edit_menu, wx.ID_ANY, _(u"Settings..."), _(u"Change ADB path, custom buttons, and more."), wx.ITEM_NORMAL )
 		self.edit_menu.AppendItem( self.settings_menu_item )
+		
+		self.edit_menu.AppendSeparator()
 		
 		self.edit_menu_item = wx.MenuItem( self.edit_menu, wx.ID_ANY, _(u"Edit..."), _(u"Edit the selected target."), wx.ITEM_NORMAL )
 		self.edit_menu.AppendItem( self.edit_menu_item )
@@ -52,6 +56,14 @@ class MainFrame ( wx.Frame ):
 		self.menu_bar.Append( self.edit_menu, _(u"Edit") ) 
 		
 		self.help_menu = wx.Menu()
+		self.releases_menu_item = wx.MenuItem( self.help_menu, wx.ID_ANY, _(u"Check releases..."), wx.EmptyString, wx.ITEM_NORMAL )
+		self.help_menu.AppendItem( self.releases_menu_item )
+		
+		self.issues_menu_item = wx.MenuItem( self.help_menu, wx.ID_ANY, _(u"Check issues..."), wx.EmptyString, wx.ITEM_NORMAL )
+		self.help_menu.AppendItem( self.issues_menu_item )
+		
+		self.help_menu.AppendSeparator()
+		
 		self.about_menu_item = wx.MenuItem( self.help_menu, wx.ID_ANY, _(u"About..."), _(u"About this application."), wx.ITEM_NORMAL )
 		self.help_menu.AppendItem( self.about_menu_item )
 		
@@ -141,6 +153,8 @@ class MainFrame ( wx.Frame ):
 		self.Bind( wx.EVT_MENU, self.on_settings_selected, id = self.settings_menu_item.GetId() )
 		self.Bind( wx.EVT_MENU, self.on_edit_selected, id = self.edit_menu_item.GetId() )
 		self.Bind( wx.EVT_MENU, self.on_remove_selected, id = self.remove_menu_item.GetId() )
+		self.Bind( wx.EVT_MENU, self.on_releases_selected, id = self.releases_menu_item.GetId() )
+		self.Bind( wx.EVT_MENU, self.on_issues_selected, id = self.issues_menu_item.GetId() )
 		self.Bind( wx.EVT_MENU, self.on_about_selected, id = self.about_menu_item.GetId() )
 		self.Bind( wx.dataview.EVT_DATAVIEW_ITEM_ACTIVATED, self.on_host_selection_item_activated, id = wx.ID_ANY )
 		self.Bind( wx.dataview.EVT_DATAVIEW_SELECTION_CHANGED, self.on_host_selection_changed, id = wx.ID_ANY )
@@ -177,6 +191,12 @@ class MainFrame ( wx.Frame ):
 		pass
 	
 	def on_remove_selected( self, event ):
+		pass
+	
+	def on_releases_selected( self, event ):
+		pass
+	
+	def on_issues_selected( self, event ):
 		pass
 	
 	def on_about_selected( self, event ):
