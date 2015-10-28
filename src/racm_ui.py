@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 
 ###########################################################################
-## Python code generated with wxFormBuilder (version Jul 16 2014)
+## Python code generated with wxFormBuilder (version Jun 17 2015)
 ## http://www.wxformbuilder.org/
 ##
 ## PLEASE DO "NOT" EDIT THIS FILE!
@@ -21,9 +21,9 @@ _ = gettext.gettext
 class MainFrame ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Remote ADB Connection Manager"), pos = wx.DefaultPosition, size = wx.Size( 550,420 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Remote ADB Connection Manager"), pos = wx.DefaultPosition, size = wx.Size( 570,520 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
-		self.SetSizeHintsSz( wx.Size( 540,420 ), wx.DefaultSize )
+		self.SetSizeHintsSz( wx.Size( 570,520 ), wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
 		
 		self.menu_bar = wx.MenuBar( 0 )
@@ -74,63 +74,68 @@ class MainFrame ( wx.Frame ):
 		wrapper = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.host_list = wx.dataview.DataViewListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.host_column = self.host_list.AppendTextColumn( _(u"Host") ) 
-		self.name_column = self.host_list.AppendTextColumn( _(u"Name") ) 
-		self.status_column = self.host_list.AppendTextColumn( _(u"Status") ) 
+		self.host_column = self.host_list.AppendTextColumn( _(u"Host") )
+		self.name_column = self.host_list.AppendTextColumn( _(u"Name") )
+		self.status_column = self.host_list.AppendTextColumn( _(u"Status") )
 		wrapper.Add( self.host_list, 1, wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
 		list_area_box = wx.BoxSizer( wx.VERTICAL )
 		
 		connection_box = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, _(u"Connection") ), wx.VERTICAL )
 		
-		self.connect_button = wx.Button( self, wx.ID_ANY, _(u"Connect"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.connect_button = wx.Button( connection_box.GetStaticBox(), wx.ID_ANY, _(u"Connect"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.connect_button.Enable( False )
 		
-		connection_box.Add( self.connect_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		connection_box.Add( self.connect_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
 		
-		self.disconnect_button = wx.Button( self, wx.ID_ANY, _(u"Disconnect"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.disconnect_button = wx.Button( connection_box.GetStaticBox(), wx.ID_ANY, _(u"Disconnect"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.disconnect_button.Enable( False )
 		
-		connection_box.Add( self.disconnect_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		connection_box.Add( self.disconnect_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
 		
 		
 		list_area_box.Add( connection_box, 0, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
 		shell_box = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, _(u"Shell") ), wx.VERTICAL )
 		
-		self.custom1_button = wx.Button( self, wx.ID_ANY, _(u"Custom 1"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.custom1_button = wx.Button( shell_box.GetStaticBox(), wx.ID_ANY, _(u"Custom 1"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.custom1_button.Enable( False )
 		
-		shell_box.Add( self.custom1_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		shell_box.Add( self.custom1_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
 		
-		self.custom2_button = wx.Button( self, wx.ID_ANY, _(u"Custom 2"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.custom2_button = wx.Button( shell_box.GetStaticBox(), wx.ID_ANY, _(u"Custom 2"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.custom2_button.Enable( False )
 		
-		shell_box.Add( self.custom2_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		shell_box.Add( self.custom2_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
 		
-		self.custom3_button = wx.Button( self, wx.ID_ANY, _(u"Custom 3"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.custom3_button = wx.Button( shell_box.GetStaticBox(), wx.ID_ANY, _(u"Custom 3"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.custom3_button.Enable( False )
 		
-		shell_box.Add( self.custom3_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		shell_box.Add( self.custom3_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
 		
-		self.shell_button = wx.Button( self, wx.ID_ANY, _(u"Shell..."), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.shell_button = wx.Button( shell_box.GetStaticBox(), wx.ID_ANY, _(u"Shell..."), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.shell_button.Enable( False )
 		self.shell_button.Hide()
 		
-		shell_box.Add( self.shell_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		shell_box.Add( self.shell_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
+		
+		self.apk_install_button = wx.Button( shell_box.GetStaticBox(), wx.ID_ANY, _(u"Install APK..."), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.apk_install_button.Enable( False )
+		
+		shell_box.Add( self.apk_install_button, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		
 		list_area_box.Add( shell_box, 0, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
 		add_remove_box = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, _(u"Add/Remove") ), wx.VERTICAL )
 		
-		self.add_button = wx.Button( self, wx.ID_ANY, _(u"Add..."), wx.DefaultPosition, wx.DefaultSize, 0 )
-		add_remove_box.Add( self.add_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		self.add_button = wx.Button( add_remove_box.GetStaticBox(), wx.ID_ANY, _(u"Add..."), wx.DefaultPosition, wx.DefaultSize, 0 )
+		add_remove_box.Add( self.add_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
 		
-		self.remove_button = wx.Button( self, wx.ID_ANY, _(u"Remove"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.remove_button = wx.Button( add_remove_box.GetStaticBox(), wx.ID_ANY, _(u"Remove"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.remove_button.Enable( False )
 		
-		add_remove_box.Add( self.remove_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		add_remove_box.Add( self.remove_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
 		
 		
 		list_area_box.Add( add_remove_box, 0, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -164,6 +169,7 @@ class MainFrame ( wx.Frame ):
 		self.custom2_button.Bind( wx.EVT_BUTTON, self.on_custom2_clicked )
 		self.custom3_button.Bind( wx.EVT_BUTTON, self.on_custom3_clicked )
 		self.shell_button.Bind( wx.EVT_BUTTON, self.on_shell_clicked )
+		self.apk_install_button.Bind( wx.EVT_BUTTON, self.on_apk_install_clicked )
 		self.add_button.Bind( wx.EVT_BUTTON, self.on_add_clicked )
 		self.remove_button.Bind( wx.EVT_BUTTON, self.on_remove_clicked )
 	
@@ -226,6 +232,9 @@ class MainFrame ( wx.Frame ):
 	def on_shell_clicked( self, event ):
 		pass
 	
+	def on_apk_install_clicked( self, event ):
+		pass
+	
 	def on_add_clicked( self, event ):
 		pass
 	
@@ -253,21 +262,21 @@ class SettingsFrame ( wx.Frame ):
 		
 		adb_box = wx.StaticBoxSizer( wx.StaticBox( self.path_panel, wx.ID_ANY, _(u"ADB") ), wx.VERTICAL )
 		
-		self.adb_desc_text = wx.StaticText( self.path_panel, wx.ID_ANY, _(u"Path to ADB command:"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.adb_desc_text = wx.StaticText( adb_box.GetStaticBox(), wx.ID_ANY, _(u"Path to ADB command:"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.adb_desc_text.Wrap( -1 )
 		adb_box.Add( self.adb_desc_text, 0, wx.ALL, 5 )
 		
-		self.adb_file_picker = wx.FilePickerCtrl( self.path_panel, wx.ID_ANY, wx.EmptyString, _(u"Select a file"), u"*.*", wx.DefaultPosition, wx.DefaultSize, wx.FLP_DEFAULT_STYLE )
+		self.adb_file_picker = wx.FilePickerCtrl( adb_box.GetStaticBox(), wx.ID_ANY, wx.EmptyString, _(u"Select a file"), u"*.*", wx.DefaultPosition, wx.DefaultSize, wx.FLP_DEFAULT_STYLE )
 		adb_box.Add( self.adb_file_picker, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		
 		adb_box.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
 		
-		self.adb_hint_text = wx.StaticText( self.path_panel, wx.ID_ANY, _(u"Hint:"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.adb_hint_text = wx.StaticText( adb_box.GetStaticBox(), wx.ID_ANY, _(u"Hint:"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.adb_hint_text.Wrap( -1 )
 		adb_box.Add( self.adb_hint_text, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.adb_hint1_text = wx.StaticText( self.path_panel, wx.ID_ANY, _(u"ADB command localed in \"platform-tools\" directory in the sdk home path."), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.adb_hint1_text = wx.StaticText( adb_box.GetStaticBox(), wx.ID_ANY, _(u"ADB command localed in \"platform-tools\" directory in the sdk home path."), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.adb_hint1_text.Wrap( -1 )
 		adb_box.Add( self.adb_hint1_text, 0, wx.ALL, 5 )
 		
@@ -437,25 +446,25 @@ class AddDialog ( wx.Dialog ):
 		
 		add = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, _(u"Add") ), wx.VERTICAL )
 		
-		self.host_text_label = wx.StaticText( self, wx.ID_ANY, _(u"Host (name or IP address):"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.host_text_label = wx.StaticText( add.GetStaticBox(), wx.ID_ANY, _(u"Host (name or IP address):"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.host_text_label.Wrap( -1 )
 		add.Add( self.host_text_label, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.host_text = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.host_text = wx.TextCtrl( add.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		add.Add( self.host_text, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.port_text_label = wx.StaticText( self, wx.ID_ANY, _(u"Port:"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.port_text_label = wx.StaticText( add.GetStaticBox(), wx.ID_ANY, _(u"Port:"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.port_text_label.Wrap( -1 )
 		add.Add( self.port_text_label, 0, wx.ALL, 5 )
 		
-		self.port_text = wx.TextCtrl( self, wx.ID_ANY, _(u"5555"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.port_text = wx.TextCtrl( add.GetStaticBox(), wx.ID_ANY, _(u"5555"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		add.Add( self.port_text, 0, wx.ALL, 5 )
 		
-		self.name_label = wx.StaticText( self, wx.ID_ANY, _(u"Name:"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.name_label = wx.StaticText( add.GetStaticBox(), wx.ID_ANY, _(u"Name:"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.name_label.Wrap( -1 )
 		add.Add( self.name_label, 0, wx.ALL, 5 )
 		
-		self.name_text = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.name_text = wx.TextCtrl( add.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		add.Add( self.name_text, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		
@@ -517,25 +526,25 @@ class EditDialog ( wx.Dialog ):
 		
 		edit = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, _(u"Edit") ), wx.VERTICAL )
 		
-		self.host_text_label = wx.StaticText( self, wx.ID_ANY, _(u"Host (name or IP address):"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.host_text_label = wx.StaticText( edit.GetStaticBox(), wx.ID_ANY, _(u"Host (name or IP address):"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.host_text_label.Wrap( -1 )
 		edit.Add( self.host_text_label, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.host_text = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.host_text = wx.TextCtrl( edit.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		edit.Add( self.host_text, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.port_text_label = wx.StaticText( self, wx.ID_ANY, _(u"Port:"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.port_text_label = wx.StaticText( edit.GetStaticBox(), wx.ID_ANY, _(u"Port:"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.port_text_label.Wrap( -1 )
 		edit.Add( self.port_text_label, 0, wx.ALL, 5 )
 		
-		self.port_text = wx.TextCtrl( self, wx.ID_ANY, _(u"5555"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.port_text = wx.TextCtrl( edit.GetStaticBox(), wx.ID_ANY, _(u"5555"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		edit.Add( self.port_text, 0, wx.ALL, 5 )
 		
-		self.name_label = wx.StaticText( self, wx.ID_ANY, _(u"Name:"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.name_label = wx.StaticText( edit.GetStaticBox(), wx.ID_ANY, _(u"Name:"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.name_label.Wrap( -1 )
 		edit.Add( self.name_label, 0, wx.ALL, 5 )
 		
-		self.name_text = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.name_text = wx.TextCtrl( edit.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		edit.Add( self.name_text, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		
