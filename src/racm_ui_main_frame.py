@@ -2,6 +2,7 @@
 
 import wx
 import adb
+import icon
 import racm_ui
 import webbrowser
 from racm_ui_add_dialog import AddDialog as InheritedAddDialog
@@ -89,6 +90,7 @@ class MainFrame(racm_ui.MainFrame):
         about.Version = self._version
         about.Copyright = "(C) 2015 Yutaka Kato"
         about.WebSite = "https://github.com/mikan/racm"
+        about.SetIcon(icon.get_icon())
         wx.AboutBox(about)
 
     def on_host_selection_changed(self, event):
