@@ -40,6 +40,22 @@ class Adb(object):
         print (args)
         return self._run(args)
 
+    def install_apk(self, host, file_path):
+        _state = self.get_state(host)
+        if _state is "offline":
+            return "device offline"
+        return self.shell(host, "install " + file_path)
+
+    def get_state(self, host):
+        _state = self.shell(host, "get-state")
+        if "unknown" in _state:
+            return "offline"
+        elif "device" in _state:
+            return "online"
+        else:
+            return "offline"
+        pass
+
     def restart(self):
         self._run([self._path, "kill-server"])
         return self._run([self._path, "start-server"])

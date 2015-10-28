@@ -2,6 +2,7 @@
 
 import wx
 import adb
+import icon
 import racm_ui
 import webbrowser
 from racm_ui_add_dialog import AddDialog as InheritedAddDialog
@@ -89,6 +90,7 @@ class MainFrame(racm_ui.MainFrame):
         about.Version = self._version
         about.Copyright = "(C) 2015 Yutaka Kato"
         about.WebSite = "https://github.com/mikan/racm"
+        about.SetIcon(icon.get_icon())
         wx.AboutBox(about)
 
     def on_host_selection_changed(self, event):
@@ -101,6 +103,7 @@ class MainFrame(racm_ui.MainFrame):
         self.custom1_button.Enable(selected and self._config.get_enable("custom1.enable"))
         self.custom2_button.Enable(selected and self._config.get_enable("custom2.enable"))
         self.custom3_button.Enable(selected and self._config.get_enable("custom3.enable"))
+        self.apk_install_button.Enable(selected)
         self.shell_button.Enable(selected)
         self.remove_button.Enable(selected)
 
@@ -145,6 +148,13 @@ class MainFrame(racm_ui.MainFrame):
 
     def on_custom3_clicked(self, event):
         self._exec_adb_shell(self._config.get("custom3.command"))
+
+    def on_apk_install_clicked(self, event):
+        _dialog = wx.FileDialog(self, "Select APK file", "", "",
+                                "APK file (*.apk)|*.apk", wx.FD_OPEN | wx.FD_FILE_MUST_EXIST)
+        if _dialog.ShowModal() == wx.ID_CANCEL:
+            return
+        self._exec_apk_install(_dialog.GetPath())
 
     def on_shell_clicked(self, event):
         pass
@@ -217,7 +227,25 @@ class MainFrame(racm_ui.MainFrame):
             dialog.Destroy()
             if ret == wx.ID_YES:
                 self.on_refresh_selected(None)
-                self._adb.shell(self.host_list.GetValue(row, _COLUMN_HOST), command)
+                result = self._adb.shell(self.host_list.GetValue(row, _COLUMN_HOST), command)
+                self.SetStatusText(result)
+
+    def _exec_apk_install(self, path):
+        row = self.host_list.GetSelectedRow()
+        if row < 0:
+            return
+        self.SetStatusText("Installing APK... Please wait.")
+        result = self._adb.install_apk(self.host_list.GetValue(row, _COLUMN_HOST), path)
+        self.SetStatusText(result)
+        if "device offline" in result:
+            self.host_list.SetTextValue("OFFLINE", row, _COLUMN_STATUS)
+            dialog = wx.MessageDialog(None, "Device is offline. Are you sure to restart ADB server?",
+                                      "Device is offline", wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
+            ret = dialog.ShowModal()
+            dialog.Destroy()
+            if ret == wx.ID_YES:
+                self.on_refresh_selected(None)
+                result = self._adb.install_apk(self.host_list.GetValue(row, _COLUMN_HOST), path)
                 self.SetStatusText(result)
 
     @staticmethod

@@ -3,16 +3,18 @@
 
 import wx
 import config
+import icon
 from racm_ui_main_frame import MainFrame as InheritedMainFrame
 
 __author__ = 'mikan'
 
-_VERSION = "0.2"
+_VERSION = "0.3"
 
 
 def _open_window(cfg, title):
     app = wx.App()
     frame = InheritedMainFrame(None, _VERSION, cfg, title)
+    frame.SetIcon(icon.get_icon())
     frame.Show()
     app.SetTopWindow(frame)
     app.MainLoop()
