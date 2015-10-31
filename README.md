@@ -48,7 +48,7 @@ Other platform users can execute RACM by command line `> chmod u+x racm.py && ./
 * Windows 10 Pro 64bit
 * Python 2.7 32bit
 * PyCharm 4.5.4
-* wxFormBuilder 3.5.0-beta
+* wxFormBuilder 3.5.1 RC1
 * py2exe 0.6.9
 
 ### OS X
