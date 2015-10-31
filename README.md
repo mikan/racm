@@ -14,7 +14,7 @@ Sources and Windows ".exe" file are located in [releases](https://github.com/mik
 ADB can connect remote target with `adb connect <host>:<port>` command, but command operations between multiple targets are very troublesome and increase destructive human errors.
 RACM has a simple interface allowing easy and safe operation.
 
-The remote ADB connection is often used by custom emulator environments (e.g. Genymotion) and some networked embedded devices (e.g. RICOH's MultiLink-Panel MFP).
+The remote ADB connection is often used by custom emulator environments (e.g. AndroVM/Genymotion) and some networked embedded devices (e.g. RICOH's MultiLink-Panel MFP).
 
 NOTE: These are usually required port forwarding settings.
 
@@ -22,11 +22,11 @@ NOTE: These are usually required port forwarding settings.
 
 When you use the first time, you need to configure the path of ADB command at Settings window from `Edit -> Settings`.
 
-![Screen shot: Settings Window 1](doc/img/settings_window_1_0.1.png "Settings Window 1")
+![Screen shot: Settings Window 1](doc/img/settings_window_1_0.3-mac.png "Settings Window 1")
 
 You can customize command shortcuts in `Custom Buttons` tab.
 
-![Screen shot: Settings Window 2](doc/img/settings_window_2_0.1.png "Settings Window 2")
+![Screen shot: Settings Window 2](doc/img/settings_window_2_0.3-mac.png "Settings Window 2")
 
 Your configurations are write to `racm.yaml` file in current (same as .exe) directory.
 
