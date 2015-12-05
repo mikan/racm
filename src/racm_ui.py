@@ -23,7 +23,7 @@ class MainFrame ( wx.Frame ):
 	def __init__( self, parent ):
 		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"Remote ADB Connection Manager"), pos = wx.DefaultPosition, size = wx.Size( 570,520 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
-		self.SetSizeHintsSz( wx.Size( 570,520 ), wx.DefaultSize )
+		self.SetSizeHintsSz( wx.Size( 570,480 ), wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
 		
 		self.menu_bar = wx.MenuBar( 0 )
@@ -127,18 +127,18 @@ class MainFrame ( wx.Frame ):
 		
 		list_area_box.Add( shell_box, 0, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
-		add_remove_box = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, _(u"Add/Remove") ), wx.VERTICAL )
+		manage_box = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, _(u"Manage") ), wx.VERTICAL )
 		
-		self.add_button = wx.Button( add_remove_box.GetStaticBox(), wx.ID_ANY, _(u"Add..."), wx.DefaultPosition, wx.DefaultSize, 0 )
-		add_remove_box.Add( self.add_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
+		self.add_button = wx.Button( manage_box.GetStaticBox(), wx.ID_ANY, _(u"Add..."), wx.DefaultPosition, wx.DefaultSize, 0 )
+		manage_box.Add( self.add_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
 		
-		self.remove_button = wx.Button( add_remove_box.GetStaticBox(), wx.ID_ANY, _(u"Remove"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.remove_button = wx.Button( manage_box.GetStaticBox(), wx.ID_ANY, _(u"Remove"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.remove_button.Enable( False )
 		
-		add_remove_box.Add( self.remove_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
+		manage_box.Add( self.remove_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
 		
 		
-		list_area_box.Add( add_remove_box, 0, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		list_area_box.Add( manage_box, 0, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
 		
 		wrapper.Add( list_area_box, 0, wx.EXPAND, 5 )
