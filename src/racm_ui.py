@@ -55,6 +55,12 @@ class MainFrame ( wx.Frame ):
 		
 		self.menu_bar.Append( self.edit_menu, _(u"Edit") ) 
 		
+		self.log_menu = wx.Menu()
+		self.logcat_menu_item = wx.MenuItem( self.log_menu, wx.ID_ANY, _(u"LogCat (EXPERIMENTAL)"), wx.EmptyString, wx.ITEM_NORMAL )
+		self.log_menu.AppendItem( self.logcat_menu_item )
+		
+		self.menu_bar.Append( self.log_menu, _(u"Log") ) 
+		
 		self.help_menu = wx.Menu()
 		self.releases_menu_item = wx.MenuItem( self.help_menu, wx.ID_ANY, _(u"Check releases..."), wx.EmptyString, wx.ITEM_NORMAL )
 		self.help_menu.AppendItem( self.releases_menu_item )
@@ -137,6 +143,12 @@ class MainFrame ( wx.Frame ):
 		
 		manage_box.Add( self.remove_button, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
 		
+		self.logcat_button = wx.Button( manage_box.GetStaticBox(), wx.ID_ANY, _(u"LogCat..."), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.logcat_button.Enable( False )
+		self.logcat_button.Hide()
+		
+		manage_box.Add( self.logcat_button, 0, wx.ALL, 5 )
+		
 		
 		list_area_box.Add( manage_box, 0, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
@@ -158,6 +170,7 @@ class MainFrame ( wx.Frame ):
 		self.Bind( wx.EVT_MENU, self.on_settings_selected, id = self.settings_menu_item.GetId() )
 		self.Bind( wx.EVT_MENU, self.on_edit_selected, id = self.edit_menu_item.GetId() )
 		self.Bind( wx.EVT_MENU, self.on_remove_selected, id = self.remove_menu_item.GetId() )
+		self.Bind( wx.EVT_MENU, self.on_logcat_selected, id = self.logcat_menu_item.GetId() )
 		self.Bind( wx.EVT_MENU, self.on_releases_selected, id = self.releases_menu_item.GetId() )
 		self.Bind( wx.EVT_MENU, self.on_issues_selected, id = self.issues_menu_item.GetId() )
 		self.Bind( wx.EVT_MENU, self.on_about_selected, id = self.about_menu_item.GetId() )
@@ -172,6 +185,7 @@ class MainFrame ( wx.Frame ):
 		self.apk_install_button.Bind( wx.EVT_BUTTON, self.on_apk_install_clicked )
 		self.add_button.Bind( wx.EVT_BUTTON, self.on_add_clicked )
 		self.remove_button.Bind( wx.EVT_BUTTON, self.on_remove_clicked )
+		self.logcat_button.Bind( wx.EVT_BUTTON, self.on_logcat_clicked )
 	
 	def __del__( self ):
 		pass
@@ -197,6 +211,9 @@ class MainFrame ( wx.Frame ):
 		pass
 	
 	def on_remove_selected( self, event ):
+		pass
+	
+	def on_logcat_selected( self, event ):
 		pass
 	
 	def on_releases_selected( self, event ):
@@ -239,6 +256,9 @@ class MainFrame ( wx.Frame ):
 		pass
 	
 	def on_remove_clicked( self, event ):
+		pass
+	
+	def on_logcat_clicked( self, event ):
 		pass
 	
 
@@ -588,6 +608,44 @@ class EditDialog ( wx.Dialog ):
 		pass
 	
 	def on_cancel_clicked( self, event ):
+		pass
+	
+
+###########################################################################
+## Class LogFrame
+###########################################################################
+
+class LogFrame ( wx.Frame ):
+	
+	def __init__( self, parent ):
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = _(u"LogCat"), pos = wx.DefaultPosition, size = wx.Size( 500,400 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		self.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
+		self.SetBackgroundColour( wx.Colour( 255, 255, 255 ) )
+		
+		wrapper = wx.BoxSizer( wx.VERTICAL )
+		
+		self.log_text = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_DONTWRAP|wx.TE_MULTILINE|wx.TE_READONLY|wx.VSCROLL )
+		self.log_text.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), 76, 90, 90, False, wx.EmptyString ) )
+		
+		wrapper.Add( self.log_text, 1, wx.ALL|wx.EXPAND, 5 )
+		
+		
+		self.SetSizer( wrapper )
+		self.Layout()
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.Bind( wx.EVT_CLOSE, self.on_log_closed )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def on_log_closed( self, event ):
 		pass
 	
 
