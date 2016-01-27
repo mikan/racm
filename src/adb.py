@@ -20,9 +20,11 @@ class Adb(object):
         ret = p.wait()
         output = Adb._out2str(p.stdout.readlines())
         error = Adb._out2str(p.stderr.readlines())
-        print("return: " + str(ret))
-        print("output: " + output)
-        print("error:  " + error)
+        print("[ADB] return: " + str(ret))
+        if output:
+            print("[ADB] output: " + output)
+        if error:
+            print("[ADB] error:  " + error)
         return output if ret is 0 else error
 
     @staticmethod
@@ -44,7 +46,12 @@ class Adb(object):
         _state = self.get_state(host)
         if _state is "offline":
             return "device offline"
-        return self.shell(host, "install " + file_path)
+        # -r: replace existing application
+        # -t: allow test packages
+        # -d: allow version code downgrade
+        args = [self._path, "-s", host, "install", "-rt", file_path]
+        print (args)
+        return self._run(args)
 
     def get_state(self, host):
         _state = self.shell(host, "get-state")

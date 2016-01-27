@@ -258,9 +258,13 @@ class MainFrame(racm_ui.MainFrame):
 
     @staticmethod
     def _get_disconnect_status(status):
-        if not str.strip(status):
+        if "disconnected" in status:  # Newer SDK
             return "DISCONNECTED"
-        elif "No such device" in status:
+        elif not str.strip(status):  # Older SDK
+            return "DISCONNECTED"
+        elif "no such device" in status:  # Newer SDK
+            return "No such device"
+        elif "No such device" in status:  # Older SDK
             return "No such device"
         return status
 
