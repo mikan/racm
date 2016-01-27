@@ -8,6 +8,7 @@ import webbrowser
 from racm_ui_add_dialog import AddDialog as InheritedAddDialog
 from racm_ui_edit_dialog import EditDialog as InheritedEditDialog
 from racm_ui_settings_frame import SettingsFrame as InheritedSettingsFrame
+from racm_ui_log_frame import LogFrame as InheritedLogFrame
 
 _COLUMN_HOST = 0
 _COLUMN_NAME = 1
@@ -84,11 +85,14 @@ class MainFrame(racm_ui.MainFrame):
     def on_issues_selected(self, event):
         self._open_browser("https://github.com/mikan/racm/issues")
 
+    def on_logcat_selected(self, event):
+        self.on_logcat_clicked(event)
+
     def on_about_selected(self, event):
         about = wx.AboutDialogInfo()
         about.Name = "Remote ADB Connection Manager"
         about.Version = self._version
-        about.Copyright = "(C) 2015 Yutaka Kato"
+        about.Copyright = "(C) 2015-2016 Yutaka Kato"
         about.WebSite = "https://github.com/mikan/racm"
         about.SetIcon(icon.get_icon())
         wx.AboutBox(about)
@@ -106,6 +110,7 @@ class MainFrame(racm_ui.MainFrame):
         self.apk_install_button.Enable(selected)
         self.shell_button.Enable(selected)
         self.remove_button.Enable(selected)
+        self.logcat_button.Enable(selected)
 
     def on_host_selection_item_activated(self, event):
         row = self.host_list.GetSelectedRow()
@@ -169,6 +174,14 @@ class MainFrame(racm_ui.MainFrame):
         if row >= 0:
             self.host_list.DeleteItem(row)
             self.on_host_selection_changed(None)
+        else:
+            self._show_error("No items selected.")
+
+    def on_logcat_clicked(self, event):
+        row = self.host_list.GetSelectedRow()
+        if row >= 0:
+            frame = InheritedLogFrame(self, self.host_list.GetValue(row, _COLUMN_HOST), self._adb)
+            frame.Show()
         else:
             self._show_error("No items selected.")
 
