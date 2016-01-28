@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import subprocess
+import _subprocess
 from compiler.ast import flatten
 
 
@@ -13,8 +14,8 @@ class Adb(object):
     @staticmethod
     def _startup_info():
         startupinfo = subprocess.STARTUPINFO()
-        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-        startupinfo.wShowWindow = subprocess.SW_HIDE
+        startupinfo.dwFlags |= _subprocess.STARTF_USESHOWWINDOW
+        startupinfo.wShowWindow = _subprocess.SW_HIDE
         return startupinfo
 
     @staticmethod
