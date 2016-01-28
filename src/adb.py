@@ -34,7 +34,7 @@ class Adb(object):
 
     @staticmethod
     def _out2str(text_seq):
-        return str.strip(" ".join(text_seq).replace("\\r", "").replace("\\n", ""))
+        return str.strip(" ".join(text_seq).replace("\\r", "").replace("\\n", "")).decode('utf-8')
 
     def connect(self, host):
         return self._run([self._path, "connect", host])
