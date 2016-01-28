@@ -3,7 +3,7 @@ Remote ADB Connection Manager
 
 RACM (Remote ADB Connection Manager) provides easy way to manage multiple remote ADB (Android Debug Bridge) connections.
 
-![Screen shot: Main Window](doc/img/main_window_0.1.png "Main Window")
+![Screen shot: Main Window](doc/img/main_window_0.3.png "Main Window")
 
 ## Download
 
@@ -14,7 +14,7 @@ Sources and Windows ".exe" file are located in [releases](https://github.com/mik
 ADB can connect remote target with `adb connect <host>:<port>` command, but command operations between multiple targets are very troublesome and increase destructive human errors.
 RACM has a simple interface allowing easy and safe operation.
 
-The remote ADB connection is often used by custom emulator environments (e.g. AndroVM/Genymotion) and some networked embedded devices (e.g. RICOH's MultiLink-Panel MFP).
+The remote ADB connection is often used by custom emulator environments (e.g. AndroVM/Genymotion) and some networked embedded devices (e.g. RICOH's Smart Operation Panel MFP).
 
 NOTE: These are usually required port forwarding settings.
 
@@ -41,21 +41,25 @@ Other platform users can execute RACM by command line `> chmod u+x racm.py && ./
 * [wxPython](http://www.wxpython.org/) 3.0
 * [PyYAML](http://pyyaml.org/) 3.11
 
+for Windows environment only:
+
+* [Python for Windows Extensions](http://sourceforge.net/projects/pywin32/) 220
+
 ## Development Environment
 
 ### Windows
 
 * Windows 10 Pro 64bit
 * Python 2.7 32bit
-* PyCharm 4.5.4
-* wxFormBuilder 3.5.0-beta
+* PyCharm 5.0
+* wxFormBuilder 3.5.1 RC1
 * py2exe 0.6.9
 
 ### OS X
 
 * OS X 10.11 El Capitan
 * Anaconda Python 2.7
-* PyCharm 4.5.4
+* PyCharm 5.0
 * wxFormBuilder 3.5 RC1
 * py2app 0.9
 

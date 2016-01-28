@@ -8,7 +8,7 @@ from racm_ui_main_frame import MainFrame as InheritedMainFrame
 
 __author__ = 'mikan'
 
-_VERSION = "0.3"
+_VERSION = "0.4"
 
 
 def _open_window(cfg, title):
