@@ -1,6 +1,8 @@
 Remote ADB Connection Manager
 =============================
 
+[![Code Climate](https://codeclimate.com/github/mikan/racm/badges/gpa.svg)](https://codeclimate.com/github/mikan/racm)
+
 RACM (Remote ADB Connection Manager) provides easy way to manage multiple remote ADB (Android Debug Bridge) connections.
 
 ![Screen shot: Main Window](doc/img/main_window_0.3.png "Main Window")
